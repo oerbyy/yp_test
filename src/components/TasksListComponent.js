@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import autoBind from 'react-autobind';
 import tasksServiceStubs from '../services/tasksServiceStubs';
+import TaskComponent from './TaskComponent';
 
-class TasksComponent extends Component {
+class TasksListComponent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      activeTaskId: null,
       tasks: []
     };
 
@@ -14,6 +16,7 @@ class TasksComponent extends Component {
   }
 
   async componentWillMount() {
+    await this.getActiveTaskId();
     await this.getTasks();
   }
 
@@ -22,7 +25,13 @@ class TasksComponent extends Component {
     this.setState({tasks: items});
   }
 
+  async getActiveTaskId() {
+    let item = await tasksServiceStubs.getActiveTaskId();
+    this.setState({activeTaskId: item});
+  }
+
   render() {
+    // TODO: why 3 times loaded ????
     let tasks = this.state.tasks;
     return (
       <div>
@@ -32,8 +41,8 @@ class TasksComponent extends Component {
   }
 
   renderItem(item) {
-    return <div class="alert alert-info">{item.title}</div>;
+    return <TaskComponent taskdata={item} />;
   }
 }
 
-export default TasksComponent;
+export default TasksListComponent;

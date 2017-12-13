@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import logo from '../logo.svg';
 import '../App.css';
-import TasksComponent from './TasksComponent';
+import TasksListComponent from './TasksListComponent';
 
 class App extends Component {
   render() {
@@ -14,7 +14,7 @@ class App extends Component {
         <div class="row">
           <div class="col-md-3" />
           <div class="col-md-6">
-            <TasksComponent />
+            <TasksListComponent />
           </div>
           <div class="col-md-3" />
         </div>

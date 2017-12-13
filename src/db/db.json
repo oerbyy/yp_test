@@ -4,7 +4,9 @@
     "tasks": [
         {
             "id" : 0,
+            "priorityOrder": 0,
             "title": "Deleted task",
+            "description": "description for Deleted task",
             "startDate" : "12/12/2017",
             "timeRecorded": 5,
             "done": true,
@@ -12,7 +14,9 @@
         },
         {
             "id" : 1,
+            "priorityOrder": 1,
             "title": "First task",
+            "description": "description for the First task",
             "startDate" : "12/12/2017",
             "timeRecorded": 10,
             "done": true,
@@ -20,7 +24,9 @@
         },
         {
             "id" : 2,
+            "priorityOrder": 20,
             "title": "Second task",
+            "description": "description for the Second task",
             "startDate" : "13/12/2017",
             "timeRecorded": 20,
             "done": false,
@@ -28,7 +34,9 @@
         },
         {
             "id" : 3,
+            "priorityOrder": 3,
             "title": "3rd task",
+            "description": "description for the Third task",
             "startDate" : "15/12/2017",
             "timeRecorded": 30,
             "done": false,
