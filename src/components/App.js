@@ -13,11 +13,11 @@ class App extends Component {
         </header>
         <br />
         <div class="row">
-          <div class="col-md-3" />
-          <div class="col-md-6">
+          <div class="col-sm-3" />
+          <div class="col-sm-6">
             <TasksListComponent />
           </div>
-          <div class="col-md-3" />
+          <div class="col-sm-3" />
         </div>
       </div>
     );
