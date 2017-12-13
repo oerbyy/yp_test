@@ -39,6 +39,14 @@ class TasksListComponent extends Component {
     this.setState({tasks: newTasks});
   }
 
+  deleteTask(taskId) {
+    let newTasks = this.state.tasks.map(item => {
+      if (item.id === taskId) item.deleted = true;
+      return item;
+    });
+    this.setState({tasks: newTasks});
+  }
+
   handleCloseForm() {
     this.setState({showModal: false});
   }
@@ -46,6 +54,10 @@ class TasksListComponent extends Component {
   handleAddTask(taskData) {
     this.addNewTask(taskData);
     this.setState({showModal: false});
+  }
+
+  handleDeleteTask(taskId) {
+    this.deleteTask(taskId);
   }
 
   render() {
@@ -70,8 +82,10 @@ class TasksListComponent extends Component {
   }
 
   renderItem(item) {
-    let isActive = item.id === this.state.activeTaskId ? 1 : 0;
-    return <TaskComponent taskdata={item} isactive={isActive} />;
+    if (!item.deleted) {
+      let isActive = item.id === this.state.activeTaskId ? 1 : 0;
+      return <TaskComponent taskdata={item} isactive={isActive} onDeleteTask={this.handleDeleteTask} />;
+    }
   }
 
   renderNewTaskForm() {

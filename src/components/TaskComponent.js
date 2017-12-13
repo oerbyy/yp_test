@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Button, Glyphicon} from 'react-bootstrap';
 import autoBind from 'react-autobind';
 
 class TaskComponent extends Component {
@@ -19,15 +20,32 @@ class TaskComponent extends Component {
     DELETED: 'DELETED'
   };
 
+  handleDeleteTask(taskId) {
+    this.props.onDeleteTask(taskId);
+  }
+
   render() {
     let task = this.state.task;
+    let btnStyle = {
+      position: 'relative',
+      float: 'right'
+    };
 
     return (
       <div class={this.getTaskUIStyle()}>
         <div class="panel-heading text-left">
-          <h2 class="panel-title">
-            <b>{task.title}</b>
-          </h2>
+          <div class="row">
+            <div class="col-md-10">
+              <h2 class="panel-title">
+                <b>{task.title}</b>
+              </h2>
+            </div>
+            <div class="col-md-2 text-right">
+              <Button onClick={() => this.handleDeleteTask(this.state.task.id)}>
+                <Glyphicon glyph="remove" />
+              </Button>
+            </div>
+          </div>
         </div>
 
         <div class="panel-body text-left">{task.description}</div>
