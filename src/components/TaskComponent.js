@@ -24,7 +24,7 @@ class TaskComponent extends Component {
 
     return (
       <div class={this.getTaskUIStyle()}>
-        <div class="panel-heading">
+        <div class="panel-heading text-left">
           <h2 class="panel-title">
             <b>{task.title}</b>
           </h2>

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import {Modal, Button} from 'react-bootstrap';
 import autoBind from 'react-autobind';
 import tasksServiceStubs from '../services/tasksServiceStubs';
 import TaskComponent from './TaskComponent';
+import TaskFormComponent from './TaskFormComponent';
 
 class TasksListComponent extends Component {
   constructor(props) {
@@ -9,7 +11,8 @@ class TasksListComponent extends Component {
 
     this.state = {
       activeTaskId: null,
-      tasks: []
+      tasks: [],
+      showModal: false
     };
 
     autoBind(this);
@@ -30,12 +33,38 @@ class TasksListComponent extends Component {
     this.setState({activeTaskId: item});
   }
 
+  addNewTask(taskData) {
+    let newTasks = this.state.tasks.slice();
+    newTasks.push(taskData);
+    this.setState({tasks: newTasks});
+  }
+
+  handleCloseForm() {
+    this.setState({showModal: false});
+  }
+
+  handleAddTask(taskData) {
+    this.addNewTask(taskData);
+    this.setState({showModal: false});
+  }
+
   render() {
-    // TODO: why 3 times loaded ????
     let tasks = this.state.tasks;
     return (
       <div>
-        <div class="row">{tasks.map(item => this.renderItem(item))}</div>
+        <div>
+          {this.renderNewTaskForm()}
+          <div class="row">
+            <button type="button" class="btn btn-primary" onClick={() => this.setState({showModal: true})}>
+              New Task
+            </button>
+          </div>
+        </div>
+        <br />
+
+        <div>
+          <div class="row">{tasks.map(item => this.renderItem(item))}</div>
+        </div>
       </div>
     );
   }
@@ -43,6 +72,25 @@ class TasksListComponent extends Component {
   renderItem(item) {
     let isActive = item.id === this.state.activeTaskId ? 1 : 0;
     return <TaskComponent taskdata={item} isactive={isActive} />;
+  }
+
+  renderNewTaskForm() {
+    return (
+      <div>
+        <Modal show={this.state.showModal}>
+          <Modal.Header>
+            <Modal.Title>New Task</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <TaskFormComponent
+              newid={this.state.tasks.length}
+              onCloseForm={this.handleCloseForm}
+              onAddTask={this.handleAddTask}
+            />
+          </Modal.Body>
+        </Modal>
+      </div>
+    );
   }
 }
 
