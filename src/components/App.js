@@ -11,6 +11,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to YP-test</h1>
         </header>
+        <br />
         <div class="row">
           <div class="col-md-3" />
           <div class="col-md-6">

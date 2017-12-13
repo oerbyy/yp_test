@@ -41,7 +41,8 @@ class TasksListComponent extends Component {
   }
 
   renderItem(item) {
-    return <TaskComponent taskdata={item} />;
+    let isActive = item.id == this.state.activeTaskId ? 1 : 0;
+    return <TaskComponent taskdata={item} isactive={isActive} />;
   }
 }
 

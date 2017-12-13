@@ -6,7 +6,9 @@ export default {
 };
 
 function getTasks() {
-  return dbData.tasks;
+  let tasks = dbData.tasks;
+  tasks.sort((x, y) => y.priorityOrder - x.priorityOrder);
+  return tasks;
 }
 
 function getActiveTaskId() {
