@@ -4,6 +4,9 @@ import autoBind from 'react-autobind';
 import tasksServiceStubs from '../services/tasksServiceStubs';
 import TaskComponent from './TaskComponent';
 import TaskFormComponent from './TaskFormComponent';
+import * as actions from '../actions/actions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 class TasksListComponent extends Component {
   constructor(props) {
@@ -16,11 +19,6 @@ class TasksListComponent extends Component {
     };
 
     autoBind(this);
-  }
-
-  async componentWillMount() {
-    await this.getActiveTaskId();
-    await this.getTasks();
   }
 
   async getTasks() {
@@ -57,11 +55,13 @@ class TasksListComponent extends Component {
   }
 
   handleDeleteTask(taskId) {
-    this.deleteTask(taskId);
+    this.props.actions.deleteTask(taskId);
   }
 
   render() {
-    let tasks = this.state.tasks;
+    console.log('TASK', this.props);
+
+    let tasks = this.props.tasks;
     return (
       <div>
         <div>
@@ -83,7 +83,7 @@ class TasksListComponent extends Component {
 
   renderItem(item) {
     if (!item.deleted) {
-      let isActive = item.id === this.state.activeTaskId ? 1 : 0;
+      let isActive = item.id === this.props.activeTaskId ? 1 : 0;
       return <TaskComponent taskdata={item} isactive={isActive} onDeleteTask={this.handleDeleteTask} />;
     }
   }
@@ -91,7 +91,7 @@ class TasksListComponent extends Component {
   renderNewTaskForm() {
     return (
       <div>
-        <Modal show={this.state.showModal}>
+        <Modal show={this.props.showModal}>
           <Modal.Header>
             <Modal.Title>New Task</Modal.Title>
           </Modal.Header>
@@ -108,4 +108,18 @@ class TasksListComponent extends Component {
   }
 }
 
-export default TasksListComponent;
+function mapStateToProps(state) {
+  return {
+    tasks: state.tasks,
+    activeTaskId: state.activeTaskId,
+    showModal: state.showModal
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TasksListComponent);
