@@ -1,6 +1,6 @@
 export const createTask = task => ({
   type: 'CREATE_TASK',
-  payload: {task}
+  payload: task
 });
 
 export const deleteTask = taskId => ({
@@ -8,7 +8,7 @@ export const deleteTask = taskId => ({
   payload: taskId
 });
 
-export const loadInitData = () => ({
-  type: 'LOAD_INIT_DATA',
-  payload: ''
+export const toggleShowModal = isShowModal => ({
+  type: 'TOGGLE_SHOW_MODAL',
+  payload: isShowModal
 });

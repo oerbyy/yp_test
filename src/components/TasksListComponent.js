@@ -21,41 +21,21 @@ class TasksListComponent extends Component {
     autoBind(this);
   }
 
-  async getTasks() {
-    let items = await tasksServiceStubs.getTasks();
-    this.setState({tasks: items});
-  }
-
-  async getActiveTaskId() {
-    let item = await tasksServiceStubs.getActiveTaskId();
-    this.setState({activeTaskId: item});
-  }
-
-  addNewTask(taskData) {
-    let newTasks = this.state.tasks.slice();
-    newTasks.push(taskData);
-    this.setState({tasks: newTasks});
-  }
-
-  deleteTask(taskId) {
-    let newTasks = this.state.tasks.map(item => {
-      if (item.id === taskId) item.deleted = true;
-      return item;
-    });
-    this.setState({tasks: newTasks});
-  }
-
   handleCloseForm() {
-    this.setState({showModal: false});
+    this.props.actions.toggleShowModal(false);
   }
 
   handleAddTask(taskData) {
-    this.addNewTask(taskData);
-    this.setState({showModal: false});
+    this.props.actions.createTask(taskData);
+    this.props.actions.toggleShowModal(false);
   }
 
   handleDeleteTask(taskId) {
     this.props.actions.deleteTask(taskId);
+  }
+
+  handleShowModal() {
+    this.props.actions.toggleShowModal(true);
   }
 
   render() {
@@ -67,7 +47,7 @@ class TasksListComponent extends Component {
         <div>
           {this.renderNewTaskForm()}
           <div class="row">
-            <button type="button" class="btn btn-primary" onClick={() => this.setState({showModal: true})}>
+            <button type="button" class="btn btn-primary" onClick={this.handleShowModal}>
               New Task
             </button>
           </div>
@@ -97,7 +77,7 @@ class TasksListComponent extends Component {
           </Modal.Header>
           <Modal.Body>
             <TaskFormComponent
-              newid={this.state.tasks.length}
+              newid={this.props.tasks.length}
               onCloseForm={this.handleCloseForm}
               onAddTask={this.handleAddTask}
             />

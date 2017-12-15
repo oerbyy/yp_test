@@ -10,17 +10,24 @@ const initState = {
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case 'CREATE_TASK':
-      return [...state, action.payload];
+      return Object.assign({}, state, {
+        tasks: [...state.tasks, action.payload]
+      });
       break;
 
     case 'DELETE_TASK':
-      let newState = Object.assign({}, state, {
+      return Object.assign({}, state, {
         tasks: state.tasks.map(item => {
           if (item.id === action.payload) item.deleted = true;
           return item;
         })
       });
-      return newState;
+      break;
+
+    case 'TOGGLE_SHOW_MODAL':
+      return Object.assign({}, state, {
+        showModal: action.payload
+      });
       break;
 
     default:
