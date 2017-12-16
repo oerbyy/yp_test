@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Glyphicon} from 'react-bootstrap';
 import autoBind from 'react-autobind';
-import TimerComponent from './TimerComponent';
+import * as dateFns from 'date-fns';
 
 class TaskComponent extends Component {
   constructor(props) {
@@ -9,17 +9,15 @@ class TaskComponent extends Component {
 
     this.state = {
       task: this.props.taskdata,
-      isActive: this.props.isactive
+      isActive: this.props.isactive,
+
+      initDate: new Date(),
+      dateNow: new Date(),
+      isRunning: false,
+      newTimeRecorded: this.props.taskdata.timeRecorded
     };
     autoBind(this);
   }
-
-  statusType = {
-    DEFAULT: 'DEFAULT',
-    ACTIVE: 'ACTIVE',
-    DONE: 'DONE',
-    DELETED: 'DELETED'
-  };
 
   handleDeleteTask(taskId) {
     this.props.onDeleteTask(taskId);
@@ -27,22 +25,22 @@ class TaskComponent extends Component {
 
   render() {
     let task = this.state.task;
-    let btnStyle = {
-      position: 'relative',
-      float: 'right'
-    };
+    // let btnStyle = {
+    //   position: 'relative',
+    //   float: 'right'
+    // };
+    let glyphImg = this.state.isRunning ? 'stop' : 'play';
 
     return (
       <div class={this.getTaskUIStyle()}>
         <div class="panel-heading text-left">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-9">
               <h2 class="panel-title">
                 <b>{task.title}</b>
               </h2>
             </div>
-            <div class="col-md-5 text-right">{this.renderTimer()}</div>
-            <div class="col-md-1 text-right">
+            <div class="col-md-3 text-right">
               <Button onClick={() => this.handleDeleteTask(this.state.task.id)}>
                 <Glyphicon glyph="remove" />
               </Button>
@@ -54,9 +52,16 @@ class TaskComponent extends Component {
 
         <div class="panel-footer">
           <div class="row" style={{justifyContent: 'space-between'}}>
-            <div class="col-md-4">Time spent: {formatSecsToHMS(task.timeRecorded)}</div>
-            <div class="col-md-4">Started on: {task.startDate}</div>
-            <div class="col-md-4">STATUS: {this.getTaskStatus()}</div>
+            <div class="col-md-6 text-left  ">
+              <span>
+                <Button onClick={() => this.onToggleTimer()}>
+                  <Glyphicon glyph={glyphImg} />
+                </Button>
+              </span>
+              Time spent: {this.renderTimer()}
+            </div>
+            <div class="col-md-3">Started on: {task.startDate}</div>
+            <div class="col-md-3">STATUS: {this.getTaskStatus()}</div>
           </div>
         </div>
       </div>
@@ -64,8 +69,20 @@ class TaskComponent extends Component {
   }
 
   renderTimer() {
-    if (this.state.isActive) return <TimerComponent />;
+    let secsPast = 0;
+    if (this.state.isActive) {
+      secsPast = dateFns.differenceInSeconds(this.state.dateNow, this.state.initDate);
+    }
+    let timePast = formatSecsToHMS(secsPast + this.state.newTimeRecorded);
+    return <span>{timePast}</span>;
   }
+
+  statusType = {
+    DEFAULT: 'DEFAULT',
+    ACTIVE: 'ACTIVE',
+    DONE: 'DONE',
+    DELETED: 'DELETED'
+  };
 
   getTaskStatus() {
     let task = this.state.task;
@@ -93,6 +110,32 @@ class TaskComponent extends Component {
         panelStyle = 'panel panel-default';
     }
     return panelStyle;
+  }
+
+  startTimer = () => {
+    this.setState({
+      initDate: new Date(),
+      dateNow: new Date(),
+      isRunning: true
+    });
+    this.timerID = setInterval(() => this.tick(), 1000);
+  };
+
+  stopTimer = () => {
+    this.setState({
+      isRunning: false
+    });
+    clearInterval(this.timerID);
+  };
+
+  tick() {
+    this.setState({
+      dateNow: new Date()
+    });
+  }
+
+  onToggleTimer() {
+    this.state.isRunning ? this.stopTimer() : this.startTimer();
   }
 }
 
