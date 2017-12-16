@@ -27,15 +27,25 @@ const reducer = (state = initState, action) => {
     case 'INCREMENT_TASK_TIMER':
       return Object.assign({}, state, {
         tasks: state.tasks.map(item => {
-          if (item.id === action.payload) item.timeRecorded++;
+          if (item.id === action.payload) {
+            let updatedItem = Object.assign({}, item);
+            updatedItem.timeRecorded++;
+            return updatedItem;
+          }
           return item;
         })
       });
       break;
 
-    case 'TOGGLE_SHOW_NEWTASK_FORM':
+    case 'TOGGLE_NEWTASK_FORM':
       return Object.assign({}, state, {
         showModal: action.payload
+      });
+      break;
+
+    case 'SWITCH_ACTIVE_TASK':
+      return Object.assign({}, state, {
+        activeTaskId: action.payload
       });
       break;
 

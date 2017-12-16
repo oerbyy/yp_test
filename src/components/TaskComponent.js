@@ -119,11 +119,15 @@ class TaskComponent extends Component {
 
   tick() {
     this.props.actions.incrementTaskTimer(this.props.taskdata.id);
-    this.setState({});
   }
 
   onToggleTimer() {
-    this.state.isRunning ? this.stopTimer() : this.startTimer();
+    if (!this.state.isRunning) {
+      this.props.actions.switchActiveTask(this.props.taskdata.id);
+      this.startTimer();
+    } else {
+      this.stopTimer();
+    }
   }
 }
 
