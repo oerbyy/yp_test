@@ -9,6 +9,10 @@ export const deleteTask = taskId => ({
 });
 
 export const toggleShowModal = isShowModal => ({
-  type: 'TOGGLE_SHOW_MODAL',
+  type: 'TOGGLE_SHOW_NEWTASK_FORM',
   payload: isShowModal
+});
+export const incrementTaskTimer = taskId => ({
+  type: 'INCREMENT_TASK_TIMER',
+  payload: taskId
 });

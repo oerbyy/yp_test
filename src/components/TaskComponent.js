@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {Button, Glyphicon} from 'react-bootstrap';
 import autoBind from 'react-autobind';
 import * as dateFns from 'date-fns';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from '../actions/actions';
 
 class TaskComponent extends Component {
   constructor(props) {
@@ -10,11 +13,7 @@ class TaskComponent extends Component {
     this.state = {
       task: this.props.taskdata,
       isActive: this.props.isactive,
-
-      initDate: new Date(),
-      dateNow: new Date(),
-      isRunning: false,
-      newTimeRecorded: this.props.taskdata.timeRecorded
+      isRunning: false
     };
     autoBind(this);
   }
@@ -25,10 +24,6 @@ class TaskComponent extends Component {
 
   render() {
     let task = this.state.task;
-    // let btnStyle = {
-    //   position: 'relative',
-    //   float: 'right'
-    // };
     let glyphImg = this.state.isRunning ? 'stop' : 'play';
 
     return (
@@ -41,7 +36,7 @@ class TaskComponent extends Component {
               </h2>
             </div>
             <div class="col-md-3 text-right">
-              <Button onClick={() => this.handleDeleteTask(this.state.task.id)}>
+              <Button onClick={() => this.handleDeleteTask(this.props.taskdata.id)}>
                 <Glyphicon glyph="remove" />
               </Button>
             </div>
@@ -69,11 +64,7 @@ class TaskComponent extends Component {
   }
 
   renderTimer() {
-    let secsPast = 0;
-    if (this.state.isActive) {
-      secsPast = dateFns.differenceInSeconds(this.state.dateNow, this.state.initDate);
-    }
-    let timePast = formatSecsToHMS(secsPast + this.state.newTimeRecorded);
+    let timePast = formatSecsToHMS(this.props.taskdata.timeRecorded);
     return <span>{timePast}</span>;
   }
 
@@ -85,7 +76,7 @@ class TaskComponent extends Component {
   };
 
   getTaskStatus() {
-    let task = this.state.task;
+    let task = this.props.taskdata;
 
     let status = this.statusType.DEFAULT;
     if (this.state.isActive) status = this.statusType.ACTIVE;
@@ -114,8 +105,6 @@ class TaskComponent extends Component {
 
   startTimer = () => {
     this.setState({
-      initDate: new Date(),
-      dateNow: new Date(),
       isRunning: true
     });
     this.timerID = setInterval(() => this.tick(), 1000);
@@ -129,9 +118,8 @@ class TaskComponent extends Component {
   };
 
   tick() {
-    this.setState({
-      dateNow: new Date()
-    });
+    this.props.actions.incrementTaskTimer(this.props.taskdata.id);
+    this.setState({});
   }
 
   onToggleTimer() {
@@ -145,4 +133,16 @@ function formatSecsToHMS(secs) {
   return timePast.toISOString().substr(11, 8);
 }
 
-export default TaskComponent;
+function mapStateToProps(state) {
+  return {
+    task: state.task
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskComponent);

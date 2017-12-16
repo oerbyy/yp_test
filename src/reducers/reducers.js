@@ -24,7 +24,16 @@ const reducer = (state = initState, action) => {
       });
       break;
 
-    case 'TOGGLE_SHOW_MODAL':
+    case 'INCREMENT_TASK_TIMER':
+      return Object.assign({}, state, {
+        tasks: state.tasks.map(item => {
+          if (item.id === action.payload) item.timeRecorded++;
+          return item;
+        })
+      });
+      break;
+
+    case 'TOGGLE_SHOW_NEWTASK_FORM':
       return Object.assign({}, state, {
         showModal: action.payload
       });

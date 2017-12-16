@@ -4,9 +4,9 @@ import autoBind from 'react-autobind';
 import tasksServiceStubs from '../services/tasksServiceStubs';
 import TaskComponent from './TaskComponent';
 import TaskFormComponent from './TaskFormComponent';
-import * as actions from '../actions/actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as actions from '../actions/actions';
 
 class TasksListComponent extends Component {
   constructor(props) {
