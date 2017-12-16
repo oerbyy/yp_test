@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Glyphicon} from 'react-bootstrap';
 import autoBind from 'react-autobind';
+import TimerComponent from './TimerComponent';
 
 class TaskComponent extends Component {
   constructor(props) {
@@ -35,12 +36,13 @@ class TaskComponent extends Component {
       <div class={this.getTaskUIStyle()}>
         <div class="panel-heading text-left">
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-6">
               <h2 class="panel-title">
                 <b>{task.title}</b>
               </h2>
             </div>
-            <div class="col-md-2 text-right">
+            <div class="col-md-5 text-right">{this.renderTimer()}</div>
+            <div class="col-md-1 text-right">
               <Button onClick={() => this.handleDeleteTask(this.state.task.id)}>
                 <Glyphicon glyph="remove" />
               </Button>
@@ -52,13 +54,17 @@ class TaskComponent extends Component {
 
         <div class="panel-footer">
           <div class="row" style={{justifyContent: 'space-between'}}>
-            <div class="col-md-4">Time spent: {task.timeRecorded} mins</div>
+            <div class="col-md-4">Time spent: {formatSecsToHMS(task.timeRecorded)}</div>
             <div class="col-md-4">Started on: {task.startDate}</div>
             <div class="col-md-4">STATUS: {this.getTaskStatus()}</div>
           </div>
         </div>
       </div>
     );
+  }
+
+  renderTimer() {
+    if (this.state.isActive) return <TimerComponent />;
   }
 
   getTaskStatus() {
@@ -88,6 +94,12 @@ class TaskComponent extends Component {
     }
     return panelStyle;
   }
+}
+
+function formatSecsToHMS(secs) {
+  let timePast = new Date(null);
+  timePast.setSeconds(secs);
+  return timePast.toISOString().substr(11, 8);
 }
 
 export default TaskComponent;
