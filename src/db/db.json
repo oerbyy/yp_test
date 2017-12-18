@@ -1,46 +1,99 @@
 {
-    "activeTaskId": 2, 
+  "activeTaskId": 2,
 
-    "tasks": [
-        {
-            "id" : 0,
-            "priorityOrder": 0,
-            "title": "Deleted task",
-            "description": "description for Deleted task",
-            "startDate" : "12/12/2017",
-            "timeRecorded": 5,
-            "done": true,
-            "deleted": true
-        },
-        {
-            "id" : 1,
-            "priorityOrder": 1,
-            "title": "First task",
-            "description": "description for the First task",
-            "startDate" : "12/12/2017",
-            "timeRecorded": 10,
-            "done": true,
-            "deleted": false
-        },
-        {
-            "id" : 2,
-            "priorityOrder": 20,
-            "title": "Second task",
-            "description": "description for the Second task",
-            "startDate" : "13/12/2017",
-            "timeRecorded": 20,
-            "done": false,
-            "deleted": false
-        },
-        {
-            "id" : 3,
-            "priorityOrder": 3,
-            "title": "3rd task",
-            "description": "description for the Third task",
-            "startDate" : "15/12/2017",
-            "timeRecorded": 30,
-            "done": false,
-            "deleted": false
-        }
-    ]
+  "tasks": [
+    {
+      "id": 0,
+      "priorityOrder": 0,
+      "title": "Deleted task",
+      "description": "description for Deleted task",
+      "startDate": "12/12/2017",
+      "timeRecorded": 100,
+      "done": true,
+      "deleted": true
+    },
+    {
+      "id": 1,
+      "priorityOrder": 1,
+      "title": "Add task",
+      "description": "пользователь​ ​должен​ ​иметь​ ​возможность​ ​добавить​ ​задачу",
+      "startDate": "12/12/2017",
+      "timeRecorded": 2000,
+      "done": true,
+      "deleted": false
+    },
+    {
+      "id": 2,
+      "priorityOrder": 20,
+      "title": "Done task",
+      "description": "пользователь​ ​должен​ ​иметь​ ​возможность​ ​отметить​ ​задачу AS DONE",
+      "startDate": "13/12/2017",
+      "timeRecorded": 1000,
+      "done": false,
+      "deleted": false
+    },
+    {
+      "id": 3,
+      "priorityOrder": 3,
+      "title": "Delete task",
+      "description": "пользователь​ ​должен​ ​иметь​ ​возможность​ ​удалить​ ​задачу",
+      "startDate": "15/12/2017",
+      "timeRecorded": 900,
+      "done": true,
+      "deleted": false
+    },
+    {
+      "id": 4,
+      "priorityOrder": 3,
+      "title": "Timer on/off",
+      "description":
+        "пользователь​ ​должен​ ​иметь​ ​возможность​ ​включить & выключить таймер​ ​для​ ​задачи ​тем​ ​самым​ ​показывая,​ ​что​ ​он​ ​начал​ ​над​ ​ней работать.​",
+      "startDate": "15/12/2017",
+      "timeRecorded": 5000,
+      "done": false,
+      "deleted": false
+    },
+    {
+      "id": 5,
+      "priorityOrder": 3,
+      "title": "Single active task only",
+      "description": "пользователь​ ​​может​ ​работать​ ​только​ ​над​ ​одной​ ​задачей​ ​одновременно.​",
+      "startDate": "15/12/2017",
+      "timeRecorded": 3000,
+      "done": false,
+      "deleted": false
+    },
+    {
+      "id": 6,
+      "priorityOrder": 10,
+      "title": "Time spent on task",
+      "description":
+        "пользователь​ ​должен​ ​иметь​ ​возможность​ ​увидеть,​ ​сколько​ ​времени​ ​он потратил​ ​на​ ​задачу​",
+      "startDate": "15/12/2017",
+      "timeRecorded": 1000,
+      "done": false,
+      "deleted": false
+    },
+    {
+      "id": 7,
+      "priorityOrder": 100,
+      "title": "DRAG n DROP",
+      "description":
+        "​пользователь​ ​должен​ ​иметь возможность​ ​изменить​ ​приоритет​ ​задачи​ ​с​ ​помощью​ ​drag-and-drop.​",
+      "startDate": "15/12/2017",
+      "timeRecorded": 7000,
+      "done": false,
+      "deleted": false
+    },
+    {
+      "id": 8,
+      "priorityOrder": 20,
+      "title": "DRAG n DROP",
+      "description": "упаковать​ ​вашу​ ​страничку​ ​в​ ​Electron​,​ ​чтобы​ ​вышло​ ​приложение​ ​на  десктоп.​",
+      "startDate": "15/12/2017",
+      "timeRecorded": 3000,
+      "done": false,
+      "deleted": false
+    }
+  ]
 }
