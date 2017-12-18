@@ -9,6 +9,8 @@ import * as actions from '../actions/actions';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import {clearInterval} from 'timers';
 
+import messageHelper from '../helpers/messageHelper';
+
 import './tasks.css';
 
 class TasksListComponent extends Component {
@@ -49,6 +51,7 @@ class TasksListComponent extends Component {
 
   handleDeleteTask(taskId) {
     this.props.actions.deleteTask(taskId);
+    messageHelper.showSuccess('Task has been deleted');
   }
 
   handleShowModal() {

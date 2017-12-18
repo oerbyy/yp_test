@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {ToastContainer} from 'react-toastify';
 import logo from '../logo.svg';
 import '../App.css';
 import TasksListComponent from './TasksListComponent';
@@ -8,8 +9,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to YP-test</h1>
+          <h1 className="App-title">Welcome to YP-Task </h1>
+          <h3 className="App-title">
+            * for <b>drag-n-drop</b> please hold a task for half second and then move on :){' '}
+          </h3>
         </header>
         <br />
         <div className="row">
@@ -19,6 +22,7 @@ class App extends Component {
           </div>
           <div className="col-sm-3" />
         </div>
+        <ToastContainer />
       </div>
     );
   }
