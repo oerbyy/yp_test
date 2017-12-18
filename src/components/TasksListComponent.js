@@ -6,6 +6,7 @@ import TaskFormComponent from './TaskFormComponent';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/actions';
+import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 
 class TasksListComponent extends Component {
   constructor(props) {
@@ -13,7 +14,6 @@ class TasksListComponent extends Component {
 
     this.state = {
       activeTaskId: null,
-      tasks: [],
       showModal: false
     };
 
@@ -37,10 +37,21 @@ class TasksListComponent extends Component {
     this.props.actions.toggleShowModal(true);
   }
 
-  render() {
-    console.log('TASK', this.props);
+  onSortEnd = ({oldIndex, newIndex}) => {
+    this.props.actions.moveTask(oldIndex, newIndex);
+  };
 
-    let tasks = this.props.tasks;
+  render() {
+    const SortableList = SortableContainer(input => {
+      let items = input.items;
+
+      return (
+        <div>
+          <div class="row">{items.map((item, index) => this.renderItem(item, index))}</div>
+        </div>
+      );
+    });
+
     return (
       <div>
         <div>
@@ -52,19 +63,22 @@ class TasksListComponent extends Component {
           </div>
         </div>
         <br />
-
-        <div>
-          <div class="row">{tasks.map(item => this.renderItem(item))}</div>
-        </div>
+        <SortableList items={this.props.tasks} onSortEnd={this.onSortEnd} pressDelay={200} />
       </div>
     );
   }
 
-  renderItem(item) {
-    if (!item.deleted) {
-      let isActive = item.id === this.props.activeTaskId ? 1 : 0;
+  renderItem(item, index) {
+    if (item.deleted) return;
+
+    let isActive = item.id === this.props.activeTaskId ? 1 : 0;
+
+    const SortableItem = SortableElement(input => {
+      let item = input.value;
       return <TaskComponent taskdata={item} isactive={isActive} onDeleteTask={this.handleDeleteTask} />;
-    }
+    });
+
+    return <SortableItem key={`item-${index}`} index={index} value={item} />;
   }
 
   renderNewTaskForm() {

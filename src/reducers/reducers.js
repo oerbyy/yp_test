@@ -1,4 +1,5 @@
 import dataService from '../services/tasksServiceStubs';
+import {arrayMove} from 'react-sortable-hoc';
 
 const initState = {
   activeTaskId: dataService.getActiveTaskId(),
@@ -42,6 +43,11 @@ const reducer = (state = initState, action) => {
       return Object.assign({}, state, {
         activeTaskId: action.payload
       });
+
+    case 'MOVE_TASK':
+      let {oldIndex, newIndex} = action.payload;
+      let newTasksList = arrayMove(state.tasks, oldIndex, newIndex);
+      return Object.assign({}, state, {tasks: newTasksList});
 
     default:
       return state;
