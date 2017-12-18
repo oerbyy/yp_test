@@ -8,6 +8,7 @@ export default {
 function getTasks() {
   let tasks = dbData.tasks;
   tasks.sort((x, y) => y.priorityOrder - x.priorityOrder);
+  tasks.sort((x, y) => x.done - y.done);
   return tasks;
 }
 

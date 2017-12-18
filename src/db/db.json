@@ -25,7 +25,7 @@
     {
       "id": 2,
       "priorityOrder": 20,
-      "title": "Done task",
+      "title": "Mark task as DONE",
       "description": "пользователь​ ​должен​ ​иметь​ ​возможность​ ​отметить​ ​задачу AS DONE",
       "startDate": "13/12/2017",
       "timeRecorded": 1000,
@@ -34,7 +34,7 @@
     },
     {
       "id": 3,
-      "priorityOrder": 3,
+      "priorityOrder": 5,
       "title": "Delete task",
       "description": "пользователь​ ​должен​ ​иметь​ ​возможность​ ​удалить​ ​задачу",
       "startDate": "15/12/2017",
@@ -44,7 +44,7 @@
     },
     {
       "id": 4,
-      "priorityOrder": 3,
+      "priorityOrder": 4,
       "title": "Timer on/off",
       "description":
         "пользователь​ ​должен​ ​иметь​ ​возможность​ ​включить & выключить таймер​ ​для​ ​задачи ​тем​ ​самым​ ​показывая,​ ​что​ ​он​ ​начал​ ​над​ ​ней работать.​",
@@ -55,7 +55,7 @@
     },
     {
       "id": 5,
-      "priorityOrder": 3,
+      "priorityOrder": 35,
       "title": "Single active task only",
       "description": "пользователь​ ​​может​ ​работать​ ​только​ ​над​ ​одной​ ​задачей​ ​одновременно.​",
       "startDate": "15/12/2017",
@@ -71,7 +71,7 @@
         "пользователь​ ​должен​ ​иметь​ ​возможность​ ​увидеть,​ ​сколько​ ​времени​ ​он потратил​ ​на​ ​задачу​",
       "startDate": "15/12/2017",
       "timeRecorded": 1000,
-      "done": false,
+      "done": true,
       "deleted": false
     },
     {
@@ -88,7 +88,7 @@
     {
       "id": 8,
       "priorityOrder": 20,
-      "title": "DRAG n DROP",
+      "title": "Electron",
       "description": "упаковать​ ​вашу​ ​страничку​ ​в​ ​Electron​,​ ​чтобы​ ​вышло​ ​приложение​ ​на  десктоп.​",
       "startDate": "15/12/2017",
       "timeRecorded": 3000,
