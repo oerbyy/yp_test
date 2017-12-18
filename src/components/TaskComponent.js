@@ -40,7 +40,7 @@ class TaskComponent extends Component {
         panelStyle = 'panel panel-danger';
         break;
       default:
-        panelStyle = 'panel panel-default';
+        panelStyle = 'panel panel-warning';
     }
     return panelStyle;
   };
@@ -51,7 +51,6 @@ class TaskComponent extends Component {
 
   render() {
     let {task, isActive, isTimerRunning} = this.props;
-    let glyphImg = isTimerRunning && isActive ? 'stop' : 'play';
 
     return (
       <div className={this.getTaskUIStyle()}>
@@ -75,11 +74,7 @@ class TaskComponent extends Component {
         <div className="panel-footer">
           <div className="row" style={{justifyContent: 'space-between'}}>
             <div className="col-md-6 text-left  ">
-              <span>
-                <Button onClick={() => this.onToggleTimer()}>
-                  <Glyphicon glyph={glyphImg} />
-                </Button>
-              </span>
+              {this.renderStartButton()}
               Time spent: {this.renderTimer(task)}
             </div>
             <div className="col-md-3">Started on: {task.startDate}</div>
@@ -87,6 +82,19 @@ class TaskComponent extends Component {
           </div>
         </div>
       </div>
+    );
+  }
+
+  renderStartButton() {
+    if (this.getTaskStatus() === this.statusType.DONE) return;
+    let {isActive, isTimerRunning} = this.props;
+    let glyphImg = isTimerRunning && isActive ? 'stop' : 'play';
+    return (
+      <span>
+        <Button onClick={() => this.onToggleTimer()}>
+          <Glyphicon glyph={glyphImg} />
+        </Button>
+      </span>
     );
   }
 
