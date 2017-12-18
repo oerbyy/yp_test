@@ -1,5 +1,5 @@
 {
-  "activeTaskId": 2,
+  "activeTaskId": 8,
 
   "tasks": [
     {
@@ -24,7 +24,7 @@
     },
     {
       "id": 2,
-      "priorityOrder": 20,
+      "priorityOrder": 2,
       "title": "Mark task as DONE",
       "description": "пользователь​ ​должен​ ​иметь​ ​возможность​ ​отметить​ ​задачу AS DONE",
       "startDate": "13/12/2017",
@@ -34,7 +34,7 @@
     },
     {
       "id": 3,
-      "priorityOrder": 5,
+      "priorityOrder": 3,
       "title": "Delete task",
       "description": "пользователь​ ​должен​ ​иметь​ ​возможность​ ​удалить​ ​задачу",
       "startDate": "15/12/2017",
@@ -55,7 +55,7 @@
     },
     {
       "id": 5,
-      "priorityOrder": 35,
+      "priorityOrder": 5,
       "title": "Single active task only",
       "description": "пользователь​ ​​может​ ​работать​ ​только​ ​над​ ​одной​ ​задачей​ ​одновременно.​",
       "startDate": "15/12/2017",
@@ -65,7 +65,7 @@
     },
     {
       "id": 6,
-      "priorityOrder": 10,
+      "priorityOrder": 6,
       "title": "Time spent on task",
       "description":
         "пользователь​ ​должен​ ​иметь​ ​возможность​ ​увидеть,​ ​сколько​ ​времени​ ​он потратил​ ​на​ ​задачу​",
@@ -76,7 +76,7 @@
     },
     {
       "id": 7,
-      "priorityOrder": 100,
+      "priorityOrder": 7,
       "title": "DRAG n DROP",
       "description":
         "​пользователь​ ​должен​ ​иметь возможность​ ​изменить​ ​приоритет​ ​задачи​ ​с​ ​помощью​ ​drag-and-drop.​",
@@ -87,7 +87,7 @@
     },
     {
       "id": 8,
-      "priorityOrder": 20,
+      "priorityOrder": 8,
       "title": "Electron",
       "description": "упаковать​ ​вашу​ ​страничку​ ​в​ ​Electron​,​ ​чтобы​ ​вышло​ ​приложение​ ​на  десктоп.​",
       "startDate": "15/12/2017",

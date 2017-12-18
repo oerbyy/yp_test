@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Modal} from 'react-bootstrap';
-import autoBind from 'react-autobind';
 import TaskComponent from './TaskComponent';
 import TaskFormComponent from './TaskFormComponent';
 import {connect} from 'react-redux';
@@ -21,8 +20,6 @@ class TasksListComponent extends Component {
       activeTaskId: null,
       showModal: false
     };
-
-    autoBind(this);
   }
 
   componentDidMount() {
@@ -33,44 +30,44 @@ class TasksListComponent extends Component {
     clearInterval(this.timerID);
   }
 
-  tick() {
+  tick = () => {
     let {isTimerRunning} = this.props;
     if (isTimerRunning) {
       this.props.actions.incrementTaskTime();
     }
-  }
+  };
 
-  handleCloseForm() {
+  handleCloseForm = () => {
     this.props.actions.toggleShowModal(false);
-  }
+  };
 
-  handleAddTask(taskData) {
+  handleAddTask = taskData => {
     this.props.actions.createTask(taskData);
     this.props.actions.toggleShowModal(false);
-  }
+  };
 
-  handleDoneTask(taskId) {
+  handleDoneTask = taskId => {
     this.props.actions.doneTask(taskId);
     messageHelper.showSuccess('Task has been DONE');
-  }
+  };
 
-  handleDeleteTask(taskId) {
+  handleDeleteTask = taskId => {
     this.props.actions.deleteTask(taskId);
     messageHelper.showWarning('Task has been deleted');
-  }
+  };
 
-  handleShowModal() {
+  handleShowModal = () => {
     this.props.actions.toggleShowModal(true);
-  }
+  };
 
-  handleOnToggleTimer(taskId) {
+  handleOnToggleTimer = taskId => {
     let {isTimerRunning, activeTaskId} = this.props;
     if (isTimerRunning && activeTaskId === taskId) {
       this.props.actions.stopTimer();
     } else {
       this.props.actions.startTimer(taskId);
     }
-  }
+  };
 
   onSortEnd = ({oldIndex, newIndex}) => {
     this.props.actions.moveTask(oldIndex, newIndex);
@@ -126,6 +123,7 @@ class TasksListComponent extends Component {
   }
 
   renderNewTaskForm() {
+    console.log;
     return (
       <div>
         <Modal show={this.props.showModal}>
@@ -134,7 +132,7 @@ class TasksListComponent extends Component {
           </Modal.Header>
           <Modal.Body>
             <TaskFormComponent
-              newid={this.props.tasks.length}
+              newId={this.props.tasks.length}
               onCloseForm={this.handleCloseForm}
               onAddTask={this.handleAddTask}
             />

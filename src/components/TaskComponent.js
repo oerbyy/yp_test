@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Button, Glyphicon} from 'react-bootstrap';
 import ConfirmComponent from './ConfirmComponent';
 
@@ -134,7 +135,7 @@ class TaskComponent extends Component {
   renderDoneButton = id => {
     if (this.getTaskStatus() === this.statusType.DONE) return;
     return (
-      <Button onClick={() => this.confirmDoneTask(id)}>
+      <Button className="tsk-btn" onClick={() => this.confirmDoneTask(id)}>
         <Glyphicon glyph="ok" />
       </Button>
     );
@@ -164,5 +165,14 @@ function formatSecsToHMS(secs) {
   timePast.setSeconds(secs);
   return timePast.toISOString().substr(11, 8);
 }
+
+TaskComponent.propTypes = {
+  task: PropTypes.object.isRequired,
+  onDoneTask: PropTypes.func.isRequired,
+  onDeleteTask: PropTypes.func.isRequired,
+  onToggleTimer: PropTypes.func.isRequired,
+  isTimerRunning: PropTypes.bool,
+  isActive: PropTypes.bool
+};
 
 export default TaskComponent;

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import autoBind from 'react-autobind';
+import PropTypes from 'prop-types';
 
 class TaskFormComponent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: this.props.newid,
-      priorityOrder: 0,
+      id: this.props.newId,
+      priorityOrder: this.props.newId,
       title: '',
       description: '',
       startDate: new Date().toLocaleDateString('en-GB'),
@@ -15,28 +15,26 @@ class TaskFormComponent extends Component {
       done: false,
       deleted: false
     };
-
-    autoBind(this);
   }
 
-  handleCloseForm(e) {
+  handleCloseForm = e => {
     this.props.onCloseForm();
-  }
-  handleAddTask(e) {
+  };
+  handleAddTask = e => {
     this.props.onAddTask(this.state);
-  }
-  handleChangeTitle(e) {
+  };
+  handleChangeTitle = e => {
     this.setState({title: e.target.value});
-  }
-  handleChangeDescription(e) {
+  };
+  handleChangeDescription = e => {
     this.setState({description: e.target.value});
-  }
+  };
 
   render() {
-    return <div className="form-group">{this.showForm()}</div>;
+    return <div className="form-group">{this.renderForm()}</div>;
   }
 
-  showForm() {
+  renderForm = () => {
     return (
       <div className="panel-primary">
         <div className="panel-heading text-left">
@@ -65,9 +63,9 @@ class TaskFormComponent extends Component {
         </div>
       </div>
     );
-  }
+  };
 
-  renderTitle() {
+  renderTitle = () => {
     return (
       <div className="row">
         <div className="form-group">
@@ -84,6 +82,13 @@ class TaskFormComponent extends Component {
         </div>
       </div>
     );
-  }
+  };
 }
+
+TaskFormComponent.propTypes = {
+  newId: PropTypes.number.isRequired,
+  onCloseForm: PropTypes.func.isRequired,
+  onAddTask: PropTypes.func.isRequired
+};
+
 export default TaskFormComponent;

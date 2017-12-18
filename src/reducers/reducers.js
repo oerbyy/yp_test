@@ -12,7 +12,7 @@ const reducer = (state = initState, action) => {
   switch (action.type) {
     case 'CREATE_TASK':
       return Object.assign({}, state, {
-        tasks: [...state.tasks, action.payload]
+        tasks: [action.payload, ...state.tasks]
       });
 
     case 'DELETE_TASK':
