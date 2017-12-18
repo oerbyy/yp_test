@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/actions';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
+import {clearInterval} from 'timers';
 
 class TasksListComponent extends Component {
   constructor(props) {
@@ -18,6 +19,21 @@ class TasksListComponent extends Component {
     };
 
     autoBind(this);
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    let {isTimerRunning} = this.props;
+    if (isTimerRunning) {
+      this.props.actions.incrementTaskTime();
+    }
   }
 
   handleCloseForm() {
@@ -35,6 +51,15 @@ class TasksListComponent extends Component {
 
   handleShowModal() {
     this.props.actions.toggleShowModal(true);
+  }
+
+  handleOnToggleTimer(taskId) {
+    let {isTimerRunning, activeTaskId} = this.props;
+    if (isTimerRunning && activeTaskId === taskId) {
+      this.props.actions.stopTimer();
+    } else {
+      this.props.actions.startTimer(taskId);
+    }
   }
 
   onSortEnd = ({oldIndex, newIndex}) => {
@@ -63,7 +88,7 @@ class TasksListComponent extends Component {
           </div>
         </div>
         <br />
-        <SortableList items={this.props.tasks} onSortEnd={this.onSortEnd} pressDelay={150} />
+        <SortableList items={this.props.tasks} onSortEnd={this.onSortEnd} pressDelay={300} />
       </div>
     );
   }
@@ -71,11 +96,19 @@ class TasksListComponent extends Component {
   renderItem(item, index) {
     if (item.deleted) return;
 
-    let isActive = item.id === this.props.activeTaskId ? 1 : 0;
+    let isActive = item.id === this.props.activeTaskId ? true : false;
 
     const SortableItem = SortableElement(input => {
       let item = input.value;
-      return <TaskComponent taskdata={item} isactive={isActive} onDeleteTask={this.handleDeleteTask} />;
+      return (
+        <TaskComponent
+          task={item}
+          isActive={isActive}
+          isTimerRunning={this.props.isTimerRunning}
+          onDeleteTask={this.handleDeleteTask}
+          onToggleTimer={this.handleOnToggleTimer}
+        />
+      );
     });
 
     return <SortableItem key={`item-${index}`} index={index} value={item} />;
@@ -105,6 +138,7 @@ function mapStateToProps(state) {
   return {
     tasks: state.tasks,
     activeTaskId: state.activeTaskId,
+    isTimerRunning: state.isTimerRunning,
     showModal: state.showModal
   };
 }

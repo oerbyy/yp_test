@@ -13,9 +13,19 @@ export const toggleShowModal = isShowModal => ({
   payload: isShowModal
 });
 
-export const incrementTaskTimer = taskId => ({
-  type: 'INCREMENT_TASK_TIMER',
-  payload: taskId
+export const startTimer = taskId => ({
+  type: 'START_TIMER',
+  payload: {taskId}
+});
+
+export const stopTimer = () => ({
+  type: 'STOP_TIMER',
+  payload: null
+});
+
+export const incrementTaskTime = () => ({
+  type: 'INCREMENT_TASK_TIME',
+  payload: null
 });
 
 export const switchActiveTask = taskId => ({

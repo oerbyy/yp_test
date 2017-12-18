@@ -1,29 +1,57 @@
 import React, {Component} from 'react';
 import {Button, Glyphicon} from 'react-bootstrap';
-import autoBind from 'react-autobind';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as actions from '../actions/actions';
 
 class TaskComponent extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      task: this.props.taskdata,
-      isActive: this.props.isactive,
-      isRunning: false
-    };
-    autoBind(this);
   }
 
-  handleDeleteTask(taskId) {
+  statusType = {
+    DEFAULT: 'DEFAULT',
+    ACTIVE: 'ACTIVE',
+    DONE: 'DONE',
+    DELETED: 'DELETED'
+  };
+
+  handleDeleteTask = taskId => {
     this.props.onDeleteTask(taskId);
-  }
+  };
+
+  getTaskStatus = () => {
+    let {task, isActive} = this.props;
+
+    let status = this.statusType.DEFAULT;
+    if (isActive) status = this.statusType.ACTIVE;
+    if (task.done) status = this.statusType.DONE;
+    if (task.deleted) status = this.statusType.DELETED;
+    return status;
+  };
+
+  getTaskUIStyle = () => {
+    let panelStyle = '';
+    switch (this.getTaskStatus()) {
+      case this.statusType.ACTIVE:
+        panelStyle = 'panel panel-primary';
+        break;
+      case this.statusType.DONE:
+        panelStyle = 'panel panel-success';
+        break;
+      case this.statusType.DELETED:
+        panelStyle = 'panel panel-danger';
+        break;
+      default:
+        panelStyle = 'panel panel-default';
+    }
+    return panelStyle;
+  };
+
+  onToggleTimer = () => {
+    this.props.onToggleTimer(this.props.task.id);
+  };
 
   render() {
-    let task = this.state.task;
-    let glyphImg = this.state.isRunning ? 'stop' : 'play';
+    let {task, isActive, isTimerRunning} = this.props;
+    let glyphImg = isTimerRunning && isActive ? 'stop' : 'play';
 
     return (
       <div className={this.getTaskUIStyle()}>
@@ -35,7 +63,7 @@ class TaskComponent extends Component {
               </h2>
             </div>
             <div className="col-md-3 text-right">
-              <Button onClick={() => this.handleDeleteTask(this.props.taskdata.id)}>
+              <Button onClick={() => this.handleDeleteTask(task.id)}>
                 <Glyphicon glyph="remove" />
               </Button>
             </div>
@@ -52,7 +80,7 @@ class TaskComponent extends Component {
                   <Glyphicon glyph={glyphImg} />
                 </Button>
               </span>
-              Time spent: {this.renderTimer()}
+              Time spent: {this.renderTimer(task)}
             </div>
             <div className="col-md-3">Started on: {task.startDate}</div>
             <div className="col-md-3">STATUS: {this.getTaskStatus()}</div>
@@ -62,71 +90,9 @@ class TaskComponent extends Component {
     );
   }
 
-  renderTimer() {
-    let timePast = formatSecsToHMS(this.props.taskdata.timeRecorded);
+  renderTimer(task) {
+    let timePast = formatSecsToHMS(task.timeRecorded);
     return <span>{timePast}</span>;
-  }
-
-  statusType = {
-    DEFAULT: 'DEFAULT',
-    ACTIVE: 'ACTIVE',
-    DONE: 'DONE',
-    DELETED: 'DELETED'
-  };
-
-  getTaskStatus() {
-    let task = this.props.taskdata;
-
-    let status = this.statusType.DEFAULT;
-    if (this.state.isActive) status = this.statusType.ACTIVE;
-    if (task.done) status = this.statusType.DONE;
-    if (task.deleted) status = this.statusType.DELETED;
-    return status;
-  }
-
-  getTaskUIStyle() {
-    let panelStyle = '';
-    switch (this.getTaskStatus()) {
-      case this.statusType.ACTIVE:
-        panelStyle = 'panel panel-primary';
-        break;
-      case this.statusType.DONE:
-        panelStyle = 'panel panel-success';
-        break;
-      case this.statusType.DELETED:
-        panelStyle = 'panel panel-danger';
-        break;
-      default:
-        panelStyle = 'panel panel-default';
-    }
-    return panelStyle;
-  }
-
-  startTimer = () => {
-    this.setState({
-      isRunning: true
-    });
-    this.timerID = setInterval(() => this.tick(), 1000);
-  };
-
-  stopTimer = () => {
-    this.setState({
-      isRunning: false
-    });
-    clearInterval(this.timerID);
-  };
-
-  tick() {
-    this.props.actions.incrementTaskTimer(this.props.taskdata.id);
-  }
-
-  onToggleTimer() {
-    if (!this.state.isRunning) {
-      this.props.actions.switchActiveTask(this.props.taskdata.id);
-      this.startTimer();
-    } else {
-      this.stopTimer();
-    }
   }
 }
 
@@ -136,16 +102,4 @@ function formatSecsToHMS(secs) {
   return timePast.toISOString().substr(11, 8);
 }
 
-function mapStateToProps(state) {
-  return {
-    task: state.task
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskComponent);
+export default TaskComponent;
