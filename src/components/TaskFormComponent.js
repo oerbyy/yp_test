@@ -33,22 +33,22 @@ class TaskFormComponent extends Component {
   }
 
   render() {
-    return <div class="form-group">{this.showForm()}</div>;
+    return <div className="form-group">{this.showForm()}</div>;
   }
 
   showForm() {
     return (
-      <div class="panel-primary">
-        <div class="panel-heading text-left">
-          <div class="panel-title">{this.renderTitle()}</div>
+      <div className="panel-primary">
+        <div className="panel-heading text-left">
+          <div className="panel-title">{this.renderTitle()}</div>
         </div>
 
-        <div class="panel-body text-left">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Details</label>
-            <div class="col-sm-10">
+        <div className="panel-body text-left">
+          <div className="form-group">
+            <label className="col-sm-2 control-label">Details</label>
+            <div className="col-sm-10">
               <textarea
-                class="form-control"
+                className="form-control"
                 onChange={this.handleChangeDescription}
                 raws="5"
                 placeholder="Tell more about it..."
@@ -57,9 +57,9 @@ class TaskFormComponent extends Component {
           </div>
         </div>
 
-        <div class="panel-footer" style={{justifyContent: 'space-between'}}>
-          <input type="submit" class="btn btn-info" value="Create" onClick={this.handleAddTask} />
-          <button class="btn btn-info" onClick={this.handleCloseForm} value="Cancel">
+        <div className="panel-footer" style={{justifyContent: 'space-between'}}>
+          <input type="submit" className="btn btn-info" value="Create" onClick={this.handleAddTask} />
+          <button className="btn btn-info" onClick={this.handleCloseForm} value="Cancel">
             Cancel
           </button>
         </div>
@@ -69,11 +69,16 @@ class TaskFormComponent extends Component {
 
   renderTitle() {
     return (
-      <div class="row">
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Title</label>
-          <div class="col-sm-10">
-            <input class="form-control" type="text" onChange={this.handleChangeTitle} placeholder="Name your Task" />
+      <div className="row">
+        <div className="form-group">
+          <label className="col-sm-2 control-label">Title</label>
+          <div className="col-sm-10">
+            <input
+              className="form-control"
+              type="text"
+              onChange={this.handleChangeTitle}
+              placeholder="Name your Task"
+            />
             <br />
           </div>
         </div>

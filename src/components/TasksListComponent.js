@@ -47,7 +47,7 @@ class TasksListComponent extends Component {
 
       return (
         <div>
-          <div class="row">{items.map((item, index) => this.renderItem(item, index))}</div>
+          <div className="row">{items.map((item, index) => this.renderItem(item, index))}</div>
         </div>
       );
     });
@@ -56,14 +56,14 @@ class TasksListComponent extends Component {
       <div>
         <div>
           {this.renderNewTaskForm()}
-          <div class="row">
-            <button type="button" class="btn btn-primary" onClick={this.handleShowModal}>
+          <div className="row">
+            <button type="button" className="btn btn-primary" onClick={this.handleShowModal}>
               New Task
             </button>
           </div>
         </div>
         <br />
-        <SortableList items={this.props.tasks} onSortEnd={this.onSortEnd} pressDelay={200} />
+        <SortableList items={this.props.tasks} onSortEnd={this.onSortEnd} pressDelay={150} />
       </div>
     );
   }

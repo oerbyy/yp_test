@@ -12,12 +12,12 @@ class App extends Component {
           <h1 className="App-title">Welcome to YP-test</h1>
         </header>
         <br />
-        <div class="row">
-          <div class="col-sm-3" />
-          <div class="col-sm-6">
+        <div className="row">
+          <div className="col-sm-3" />
+          <div className="col-sm-6">
             <TasksListComponent />
           </div>
-          <div class="col-sm-3" />
+          <div className="col-sm-3" />
         </div>
       </div>
     );

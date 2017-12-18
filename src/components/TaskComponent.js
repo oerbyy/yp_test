@@ -26,15 +26,15 @@ class TaskComponent extends Component {
     let glyphImg = this.state.isRunning ? 'stop' : 'play';
 
     return (
-      <div class={this.getTaskUIStyle()}>
-        <div class="panel-heading text-left">
-          <div class="row">
-            <div class="col-md-9">
-              <h2 class="panel-title">
+      <div className={this.getTaskUIStyle()}>
+        <div className="panel-heading text-left">
+          <div className="row">
+            <div className="col-md-9">
+              <h2 className="panel-title">
                 <b>{task.title}</b>
               </h2>
             </div>
-            <div class="col-md-3 text-right">
+            <div className="col-md-3 text-right">
               <Button onClick={() => this.handleDeleteTask(this.props.taskdata.id)}>
                 <Glyphicon glyph="remove" />
               </Button>
@@ -42,11 +42,11 @@ class TaskComponent extends Component {
           </div>
         </div>
 
-        <div class="panel-body text-left">{task.description}</div>
+        <div className="panel-body text-left">{task.description}</div>
 
-        <div class="panel-footer">
-          <div class="row" style={{justifyContent: 'space-between'}}>
-            <div class="col-md-6 text-left  ">
+        <div className="panel-footer">
+          <div className="row" style={{justifyContent: 'space-between'}}>
+            <div className="col-md-6 text-left  ">
               <span>
                 <Button onClick={() => this.onToggleTimer()}>
                   <Glyphicon glyph={glyphImg} />
@@ -54,8 +54,8 @@ class TaskComponent extends Component {
               </span>
               Time spent: {this.renderTimer()}
             </div>
-            <div class="col-md-3">Started on: {task.startDate}</div>
-            <div class="col-md-3">STATUS: {this.getTaskStatus()}</div>
+            <div className="col-md-3">Started on: {task.startDate}</div>
+            <div className="col-md-3">STATUS: {this.getTaskStatus()}</div>
           </div>
         </div>
       </div>
