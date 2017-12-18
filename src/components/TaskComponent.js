@@ -7,7 +7,8 @@ class TaskComponent extends Component {
     super(props);
 
     this.state = {
-      taskToDeleteId: null
+      taskToDeleteId: null,
+      taskToDoneId: null
     };
   }
 
@@ -16,6 +17,25 @@ class TaskComponent extends Component {
     ACTIVE: 'ACTIVE',
     DONE: 'DONE',
     DELETED: 'DELETED'
+  };
+
+  confirmDoneTask = id => {
+    this.setState({
+      taskToDoneId: id
+    });
+  };
+
+  cancelDoneTask = () => {
+    this.setState({
+      taskToDoneId: null
+    });
+  };
+
+  doneTask = taskId => {
+    this.props.onDoneTask(this.state.taskToDoneId);
+    this.setState({
+      taskToDoneId: null
+    });
   };
 
   confirmDeleteTask = id => {
@@ -71,11 +91,13 @@ class TaskComponent extends Component {
 
   render() {
     let {task, isActive, isTimerRunning} = this.props;
+    let doneConfirmVisible = this.state.taskToDoneId ? true : false;
     let deleteConfirmVisible = this.state.taskToDeleteId ? true : false;
 
     return (
       <div className={this.getTaskUIStyle()}>
         <div className="panel-heading text-left">
+          <ConfirmComponent visible={doneConfirmVisible} action={this.doneTask} close={this.cancelDoneTask} />
           <ConfirmComponent visible={deleteConfirmVisible} action={this.deleteTask} close={this.cancelDeleteTask} />
 
           <div className="row">
@@ -85,6 +107,7 @@ class TaskComponent extends Component {
               </h2>
             </div>
             <div className="col-md-3 text-right">
+              {this.renderDoneButton(task.id)}
               <Button onClick={() => this.confirmDeleteTask(task.id)}>
                 <Glyphicon glyph="remove" />
               </Button>
@@ -108,7 +131,16 @@ class TaskComponent extends Component {
     );
   }
 
-  renderStartButton() {
+  renderDoneButton = id => {
+    if (this.getTaskStatus() === this.statusType.DONE) return;
+    return (
+      <Button onClick={() => this.confirmDoneTask(id)}>
+        <Glyphicon glyph="ok" />
+      </Button>
+    );
+  };
+
+  renderStartButton = () => {
     if (this.getTaskStatus() === this.statusType.DONE) return;
     let {isActive, isTimerRunning} = this.props;
     let glyphImg = isTimerRunning && isActive ? 'stop' : 'play';
@@ -119,12 +151,12 @@ class TaskComponent extends Component {
         </Button>
       </span>
     );
-  }
+  };
 
-  renderTimer(task) {
+  renderTimer = task => {
     let timePast = formatSecsToHMS(task.timeRecorded);
     return <span>{timePast}</span>;
-  }
+  };
 }
 
 function formatSecsToHMS(secs) {

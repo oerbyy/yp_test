@@ -23,6 +23,14 @@ const reducer = (state = initState, action) => {
         })
       });
 
+    case 'DONE_TASK':
+      return Object.assign({}, state, {
+        tasks: state.tasks.map(item => {
+          if (item.id === action.payload) item.done = true;
+          return item;
+        })
+      });
+
     case 'TOGGLE_NEWTASK_FORM':
       return Object.assign({}, state, {
         showModal: action.payload

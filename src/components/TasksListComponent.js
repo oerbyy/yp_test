@@ -49,9 +49,14 @@ class TasksListComponent extends Component {
     this.props.actions.toggleShowModal(false);
   }
 
+  handleDoneTask(taskId) {
+    this.props.actions.doneTask(taskId);
+    messageHelper.showSuccess('Task has been DONE');
+  }
+
   handleDeleteTask(taskId) {
     this.props.actions.deleteTask(taskId);
-    messageHelper.showSuccess('Task has been deleted');
+    messageHelper.showWarning('Task has been deleted');
   }
 
   handleShowModal() {
@@ -110,6 +115,7 @@ class TasksListComponent extends Component {
           task={item}
           isActive={isActive}
           isTimerRunning={this.props.isTimerRunning}
+          onDoneTask={this.handleDoneTask}
           onDeleteTask={this.handleDeleteTask}
           onToggleTimer={this.handleOnToggleTimer}
         />

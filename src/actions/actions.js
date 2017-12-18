@@ -8,6 +8,11 @@ export const deleteTask = taskId => ({
   payload: taskId
 });
 
+export const doneTask = taskId => ({
+  type: 'DONE_TASK',
+  payload: taskId
+});
+
 export const toggleShowModal = isShowModal => ({
   type: 'TOGGLE_NEWTASK_FORM',
   payload: isShowModal
