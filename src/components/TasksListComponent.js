@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import autoBind from 'react-autobind';
-import tasksServiceStubs from '../services/tasksServiceStubs';
 import TaskComponent from './TaskComponent';
 import TaskFormComponent from './TaskFormComponent';
 import {connect} from 'react-redux';

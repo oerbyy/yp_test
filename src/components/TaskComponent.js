@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Glyphicon} from 'react-bootstrap';
 import autoBind from 'react-autobind';
-import * as dateFns from 'date-fns';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/actions';

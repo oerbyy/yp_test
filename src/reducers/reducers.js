@@ -1,4 +1,3 @@
-import {combineReducers} from 'redux';
 import dataService from '../services/tasksServiceStubs';
 
 const initState = {
@@ -13,7 +12,6 @@ const reducer = (state = initState, action) => {
       return Object.assign({}, state, {
         tasks: [...state.tasks, action.payload]
       });
-      break;
 
     case 'DELETE_TASK':
       return Object.assign({}, state, {
@@ -22,7 +20,6 @@ const reducer = (state = initState, action) => {
           return item;
         })
       });
-      break;
 
     case 'INCREMENT_TASK_TIMER':
       return Object.assign({}, state, {
@@ -35,19 +32,16 @@ const reducer = (state = initState, action) => {
           return item;
         })
       });
-      break;
 
     case 'TOGGLE_NEWTASK_FORM':
       return Object.assign({}, state, {
         showModal: action.payload
       });
-      break;
 
     case 'SWITCH_ACTIVE_TASK':
       return Object.assign({}, state, {
         activeTaskId: action.payload
       });
-      break;
 
     default:
       return state;
