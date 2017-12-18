@@ -57,9 +57,9 @@ class TaskFormComponent extends Component {
           </div>
         </div>
 
-        <div className="panel-footer" style={{justifyContent: 'space-between'}}>
-          <input type="submit" className="btn btn-info" value="Create" onClick={this.handleAddTask} />
-          <button className="btn btn-info" onClick={this.handleCloseForm} value="Cancel">
+        <div className="panel-footer tsk-footer">
+          <input type="submit" className="btn btn-info tsk-btn" value="Create" onClick={this.handleAddTask} />
+          <button className="btn btn-info tsk-btn" onClick={this.handleCloseForm} value="Cancel">
             Cancel
           </button>
         </div>

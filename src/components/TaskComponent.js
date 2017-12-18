@@ -1,20 +1,40 @@
 import React, {Component} from 'react';
 import {Button, Glyphicon} from 'react-bootstrap';
+import ConfirmComponent from './ConfirmComponent';
 
 class TaskComponent extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      taskToDeleteId: null
+    };
   }
 
   statusType = {
-    DEFAULT: 'DEFAULT',
+    DEFAULT: 'WAITING',
     ACTIVE: 'ACTIVE',
     DONE: 'DONE',
     DELETED: 'DELETED'
   };
 
-  handleDeleteTask = taskId => {
-    this.props.onDeleteTask(taskId);
+  confirmDeleteTask = id => {
+    this.setState({
+      taskToDeleteId: id
+    });
+  };
+
+  cancelDeleteTask = () => {
+    this.setState({
+      taskToDeleteId: null
+    });
+  };
+
+  deleteTask = taskId => {
+    this.props.onDeleteTask(this.state.taskToDeleteId);
+    this.setState({
+      taskToDeleteId: null
+    });
   };
 
   getTaskStatus = () => {
@@ -51,10 +71,13 @@ class TaskComponent extends Component {
 
   render() {
     let {task, isActive, isTimerRunning} = this.props;
+    let deleteConfirmVisible = this.state.taskToDeleteId ? true : false;
 
     return (
       <div className={this.getTaskUIStyle()}>
         <div className="panel-heading text-left">
+          <ConfirmComponent visible={deleteConfirmVisible} action={this.deleteTask} close={this.cancelDeleteTask} />
+
           <div className="row">
             <div className="col-md-9">
               <h2 className="panel-title">
@@ -62,7 +85,7 @@ class TaskComponent extends Component {
               </h2>
             </div>
             <div className="col-md-3 text-right">
-              <Button onClick={() => this.handleDeleteTask(task.id)}>
+              <Button onClick={() => this.confirmDeleteTask(task.id)}>
                 <Glyphicon glyph="remove" />
               </Button>
             </div>
@@ -72,7 +95,7 @@ class TaskComponent extends Component {
         <div className="panel-body text-left">{task.description}</div>
 
         <div className="panel-footer">
-          <div className="row" style={{justifyContent: 'space-between'}}>
+          <div className="row tsk-footer">
             <div className="col-md-6 text-left  ">
               {this.renderStartButton()}
               Time spent: {this.renderTimer(task)}
@@ -91,7 +114,7 @@ class TaskComponent extends Component {
     let glyphImg = isTimerRunning && isActive ? 'stop' : 'play';
     return (
       <span>
-        <Button onClick={() => this.onToggleTimer()}>
+        <Button className="tsk-btn" onClick={() => this.onToggleTimer()}>
           <Glyphicon glyph={glyphImg} />
         </Button>
       </span>

@@ -9,6 +9,8 @@ import * as actions from '../actions/actions';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import {clearInterval} from 'timers';
 
+import './tasks.css';
+
 class TasksListComponent extends Component {
   constructor(props) {
     super(props);
