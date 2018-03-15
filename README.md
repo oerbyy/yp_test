@@ -1,27 +1,16 @@
-# Y-Productive test task 
+# Task list with time tracking
 
 #### Author: Volodymyr Shchukin 
 
-## [Task details](https://drive.google.com/file/d/1Assl0HLFEMRc9_WxCq4CAXzxEltDOTMJ/view) 
-
-Реализовать​ ​небольшой​ ​таск​ ​лист​ ​с​ ​тайм-трекингом​ ​на​ ​базе​ ​React​ ​и​ ​Flux
-архитектуры​ ​(Redux,​ ​Reflux,​ ​etc)​ ​без​ ​бэкенда.
-Базовый​ ​функционал:
-* аутентификация​ ​и​ ​авторизация​ ​не​ ​требуется
-* пользователь​ ​должен​ ​иметь​ ​возможность​ ​добавить​ ​задачу
-* пользователь​ ​должен​ ​иметь​ ​возможность​ ​отметить​ ​задачу,​ ​как
-выполненная
-* пользователь​ ​должен​ ​иметь​ ​возможность​ ​удалить​ ​задачу
-* пользователь​ ​должен​ ​иметь​ ​возможность​ ​включить/выключить
-таймер​ ​для​ ​задачи,​ ​тем​ ​самым​ ​показывая,​ ​что​ ​он​ ​начал​ ​над​ ​ней
-работать.​ ​Он​ ​может​ ​работать​ ​только​ ​над​ ​одной​ ​задачей​ ​одновременно.
-* пользователь​ ​должен​ ​иметь​ ​возможность​ ​увидеть,​ ​сколько​ ​времени​ ​он
-потратил​ ​на​ ​задачу
-* упаковать​ ​вашу​ ​страничку​ ​в​ ​Electron​,​ ​чтобы​ ​вышло​ ​приложение​ ​на
-десктоп.
-* Special​ ​feature​ ​(большой​ ​плюс​ ​в​ ​рейтинг):​ ​ ​пользователь​ ​должен​ ​иметь
-возможность​ ​изменить​ ​приоритет​ ​задачи​ ​с​ ​помощью​ ​drag-and-drop.
-Неуточненные​ ​детали​ ​реализуются​ ​по​ ​усмотрению​ ​разработчика.
+This is a small demo task-list tracker based on JS/React/Redux (no backend) with basic functionality:
+* user may add a task
+* user may delete a task
+* user may turn on/off a task he is currently working on (only one task can be active at a time)
+* user may see how much time is already spent on each task
+* user may set a task as done
+* user may prioritize tasks by drag-n-drop
+* no authentication / authorization 
+* webpage is packed into Electron, so it can be run as a desktop app (instructions below)
 
 ## Usage
 
